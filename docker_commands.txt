@@ -1,0 +1,12 @@
+docker run -it --rm -v C:/Users/Viktor/Desktop/era_test/.:/home/era_data -v C:/Users/Viktor/Desktop/wrf_test/.:/home/wrf_data -v C:/Users/Viktor/ml/Precipitation-Nowcasting-master/logs/.:/home/logs run_conv
+docker run -it --rm -v /mnt/Datalake0/wrf/wrf6km/.:/home/wrf_data -v /mnt/data/ERA5/uv10_t2/.:/home/era_data -v $(pwd)/logs/.:/home/logs --gpus 1 --cpus=16 conv2d_wrf_correction
+
+
+
+docker run -it --rm -v /mnt/Datalake0/wrf/wrf6km/.:/home/wrf_data -v /mnt/data/ERA5/uv10_t2/.:/home/era_data -v $(pwd)/logs/.:/home/logs --gpus device=1 --ipc=host conv2d_wrf_correction
+
+
+
+/home/wrf_data/wrfout_d01_2020-12-31_00:00:00 ['U10', 'V10', 'T2'] (19, 1, 210, 280)
+/home/era_data/era_uv10_t2_2020-12-31 ['u10', 'v10', 't2m'] (24, 1, 67, 215)
+17524 (0, 1, 210, 280) (4, 1, 67, 215)
