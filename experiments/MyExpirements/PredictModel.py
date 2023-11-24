@@ -15,7 +15,7 @@ Path_list = [['C:/Users/AI Lab/Desktop/Хакатон Москва/train_dataset
 
 PATH_model = 'C:/Users/AI Lab/Desktop/Хакатон Москва/RSVbaseline/logs/constantBaseline/misc_32/models/model_4.pth'
 batch_size = 1
-
+# TODO  Не доделал
 wrf_scaler = StandardScaler()
 
 wrf_scaler.apply_scaler_channel_params(torch.load(os.path.join(cfg.GLOBAL.MODEL_SAVE_DIR, 'wrf_means')),
