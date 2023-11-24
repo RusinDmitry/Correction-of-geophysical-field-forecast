@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, '../../')
 import torch
 from correction.config import cfg
-from correction.models.constantBias import ConstantBias
+from correction.models.constantBias import ConstantBias, MyTestModel, UNET
 from torch.optim import lr_scheduler
 from correction.models.loss import TurbulentMSE
 
@@ -19,7 +19,7 @@ from correction.train import train
 if __name__ == "__main__":
     print('Device is:', cfg.GLOBAL.DEVICE)
     batch_size = 32
-    max_epochs = 1
+    max_epochs = 4
 
     LR = 1e-4
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     meaner = MeanToERA5(os.path.join(cfg.GLOBAL.BASE_DIR, 'wrferaMapping.npy'))
     criterion = TurbulentMSE(meaner, beta=0, logger=logger).to(cfg.GLOBAL.DEVICE)
 
-    model = ConstantBias(3).to(cfg.GLOBAL.DEVICE)
+    model = UNET(3).to(cfg.GLOBAL.DEVICE)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-5)
     mult_step_scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[30, 40], gamma=0.1)
