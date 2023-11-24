@@ -25,9 +25,15 @@ class MyTestModel(nn.Module):
     def __init__(self, channels=6):
         super().__init__()
         self.channels = channels
-        self.linear1 = torch.nn.Linear(channels*210*280, 200)
+        self.linear1 = torch.nn.Linear(channels*210*280, 2000)
         self.activation = torch.nn.ReLU()
-        self.linear2 = torch.nn.Linear(200, 3)
+        self.linear2 = torch.nn.Linear(2000, 1000)
+        self.activation = torch.nn.ReLU()
+        self.linear3 = torch.nn.Linear(1000, 500)
+        self.activation = torch.nn.ReLU()
+        self.linear4 = torch.nn.Linear(500, 200)
+        self.activation = torch.nn.ReLU()
+        self.linear5 = torch.nn.Linear(200, 3)
 
     def forward(self, x):
         '''
@@ -39,6 +45,12 @@ class MyTestModel(nn.Module):
         x = self.linear1(x.view(*x.shape[:-3], self.channels*210*280)) #[4,32,3*210*280] [4,32,176400] -> [4,32,200]
         x = self.activation(x)
         x = self.linear2(x)
+        x = self.activation(x)
+        x = self.linear3(x)
+        x = self.activation(x)
+        x = self.linear4(x)
+        x = self.activation(x)
+        x = self.linear5(x)
         output = o_input[0].permute(3, 4, 0, 1, 2) + x #[210, 280, 4, 32, 3] + [4, 32, 3]
         return output.permute(2, 3, 4, 0, 1)
 
@@ -79,9 +91,9 @@ class UNET(nn.Module):
     def __init__(self, channels=6):
         super().__init__()
 
-        base_channels = channels
+        base_channels = 200
         self.channels = channels
-        self.down1 = conv_plus_conv(channels*210*280, base_channels)
+        self.down1 = conv_plus_conv(channels*210*280, 200)
         self.down2 = conv_plus_conv(base_channels, base_channels * 2)
 
         self.up1 = conv_plus_conv(base_channels * 2, base_channels)

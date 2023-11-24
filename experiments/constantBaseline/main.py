@@ -19,7 +19,7 @@ from correction.train import train
 if __name__ == "__main__":
     print('Device is:', cfg.GLOBAL.DEVICE)
     batch_size = 32
-    max_epochs = 4
+    max_epochs = 10
 
     LR = 1e-4
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     meaner = MeanToERA5(os.path.join(cfg.GLOBAL.BASE_DIR, 'wrferaMapping.npy'))
     criterion = TurbulentMSE(meaner, beta=0, logger=logger).to(cfg.GLOBAL.DEVICE)
 
-    model = UNET(3).to(cfg.GLOBAL.DEVICE)
+    model = MyTestModel(3).to(cfg.GLOBAL.DEVICE)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-5)
     mult_step_scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[30, 40], gamma=0.1)
