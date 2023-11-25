@@ -9,7 +9,7 @@ __C.GLOBAL.DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 __C.GLOBAL.BATCH_SIZE = None
 
-__C.GLOBAL.BASE_DIR = 'C:/Users/AI Lab/Desktop/Хакатон Москва/Correction-of-geophysical-field-forecast'  # Base project folder
+__C.GLOBAL.BASE_DIR = 'C:/Users/user/Desktop/clone_pasha/Correction-of-geophysical-field-forecast'  # Base project folder
 
 __C.GLOBAL.MODEL_SAVE_DIR = os.path.join(__C.GLOBAL.BASE_DIR, 'logs')
 assert __C.GLOBAL.MODEL_SAVE_DIR is not None

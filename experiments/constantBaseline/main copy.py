@@ -21,7 +21,7 @@ from correction.train import train
 if __name__ == "__main__":
     print('Device is:', cfg.GLOBAL.DEVICE)
     batch_size = 32
-    max_epochs = 10
+    max_epochs = 300
 
     LR = 1e-3
 
@@ -52,6 +52,8 @@ if __name__ == "__main__":
     criterion = TurbulentMSE(meaner, beta=0, logger=logger).to(cfg.GLOBAL.DEVICE)
 
     model = MyTestModel3(3).to(cfg.GLOBAL.DEVICE)
+
+    model.load_state_dict(torch.load('C:/Users/user/Desktop/misc_107_0.1039311481570756/models/model_9.pth'))
 
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=1e-5)
     mult_step_scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[30, 40], gamma=0.1)
